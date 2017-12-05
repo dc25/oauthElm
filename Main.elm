@@ -16,7 +16,8 @@ type Msg =   NoOp
            | UrlChange Navigation.Location
 
 clientId = "8256469ec6a458a2b111"
-redirectUri = "https://dc25.github.io/oauthElm"
+repoName = "oauthElm"
+redirectUri = "https://dc25.github.io/" ++ repoName
 scope = "repo:user"
 state = "w9erwlksjdf;kajdsf"
 
@@ -28,8 +29,7 @@ githubOauthUri = "https://github.com/login/oauth/authorize"
 
 type Route = OauthCode (Maybe String) (Maybe String)
 route : Parser (Route -> a) a
-route = map OauthCode (s "oauth" <?> stringParam "code" <?> stringParam "state")
--- https://dc25.github.io/oauthElm/?code=138e645d4e27dd853b8e&state=w9erwlksjdf
+route = map OauthCode (s repoName <?> stringParam "code" <?> stringParam "state")
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
