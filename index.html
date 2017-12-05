@@ -9837,7 +9837,8 @@ var _evancz$url_parser$UrlParser$intParam = function (name) {
 };
 var _user$project$Main$state = 'w9erwlksjdf;kajdsf';
 var _user$project$Main$scope = 'repo:user';
-var _user$project$Main$redirectUri = 'https://dc25.github.io/oauthElm';
+var _user$project$Main$repoName = 'oauthElm';
+var _user$project$Main$redirectUri = A2(_elm_lang$core$Basics_ops['++'], 'https://dc25.github.io/', _user$project$Main$repoName);
 var _user$project$Main$clientId = '8256469ec6a458a2b111';
 var _user$project$Main$githubOauthUri = A2(
 	_elm_lang$core$Basics_ops['++'],
@@ -9928,7 +9929,7 @@ var _user$project$Main$route = A2(
 		_evancz$url_parser$UrlParser_ops['<?>'],
 		A2(
 			_evancz$url_parser$UrlParser_ops['<?>'],
-			_evancz$url_parser$UrlParser$s('oauth'),
+			_evancz$url_parser$UrlParser$s(_user$project$Main$repoName),
 			_evancz$url_parser$UrlParser$stringParam('code')),
 		_evancz$url_parser$UrlParser$stringParam('state')));
 var _user$project$Main$init = function (location) {
