@@ -49,7 +49,7 @@ requestAuthorization code =
         body = stringBody "text/plain;charset=utf-8" content
 
         rq = request 
-                 { method = "POST"
+                 { method = "GET"
                  , headers = headers
                  , url = url
                  , body = body

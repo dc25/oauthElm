@@ -9845,7 +9845,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 	};
 	var url = 'http://172.17.0.2:8000/';
 	var rq = _elm_lang$http$Http$request(
-		{method: 'POST', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
+		{method: 'GET', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$init = function (location) {
