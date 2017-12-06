@@ -36,7 +36,7 @@ redirectParser = map TokenData (   s repoName
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization _ =
-    let url = "http://172.17.0.2/"
+    let url = "http://172.17.0.2:80/"
     in Http.send GetAuthorization <|
             Http.getString url
 
