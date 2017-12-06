@@ -21,7 +21,6 @@ scope = "repo:user"
 state = "w9erwlksjdf;kajdsf"
 
 githubOauthUri = "https://github.com/login/oauth/authorize"
--- githubOauthUri = "http://172.17.0.2:8000/"
                      ++ "?client_id=" ++ clientId 
                      ++ "&redirect_uri=" ++ redirectUri 
                      ++ "&scope=" ++ scope 
@@ -36,7 +35,8 @@ redirectParser = map TokenData (   s repoName
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization _ =
-    let url = "http://172.17.0.2:80/"
+    let url = "https://github.com"
+    -- let url = "http://172.17.0.2:80/"
     in Http.send GetAuthorization <|
             Http.getString url
 
