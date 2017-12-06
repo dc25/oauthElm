@@ -9778,23 +9778,16 @@ var _user$project$Main$view = function (m) {
 			}
 		});
 };
-var _user$project$Main$Oauth = F2(
-	function (a, b) {
-		return {code: a, state: b};
-	});
 var _user$project$Main$Model = function (a) {
 	return {oauth: a};
 };
-var _user$project$Main$UrlChange = function (a) {
-	return {ctor: 'UrlChange', _0: a};
-};
-var _user$project$Main$OauthCode = F2(
+var _user$project$Main$Oauth = F2(
 	function (a, b) {
-		return {ctor: 'OauthCode', _0: a, _1: b};
+		return {ctor: 'Oauth', _0: a, _1: b};
 	});
-var _user$project$Main$route = A2(
+var _user$project$Main$oauthParser = A2(
 	_evancz$url_parser$UrlParser$map,
-	_user$project$Main$OauthCode,
+	_user$project$Main$Oauth,
 	A2(
 		_evancz$url_parser$UrlParser_ops['<?>'],
 		A2(
@@ -9803,27 +9796,24 @@ var _user$project$Main$route = A2(
 			_evancz$url_parser$UrlParser$stringParam('code')),
 		_evancz$url_parser$UrlParser$stringParam('state')));
 var _user$project$Main$init = function (location) {
-	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$route, location);
+	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$oauthParser, location);
 	var _p1 = oauth;
-	if (((_p1.ctor === 'Just') && (_p1._0._0.ctor === 'Just')) && (_p1._0._1.ctor === 'Just')) {
+	if (_p1.ctor === 'Just') {
 		return {
 			ctor: '_Tuple2',
-			_0: {
-				oauth: _elm_lang$core$Maybe$Just(
-					{code: _p1._0._0._0, state: _p1._0._1._0})
-			},
+			_0: {oauth: oauth},
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	} else {
 		return {
 			ctor: '_Tuple2',
-			_0: {
-				oauth: _elm_lang$core$Maybe$Just(
-					{code: '', state: ''})
-			},
+			_0: {oauth: oauth},
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	}
+};
+var _user$project$Main$UrlChange = function (a) {
+	return {ctor: 'UrlChange', _0: a};
 };
 var _user$project$Main$main = A2(
 	_elm_lang$navigation$Navigation$program,
