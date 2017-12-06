@@ -9724,29 +9724,48 @@ var _evancz$url_parser$UrlParser$intParam = function (name) {
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
-		if (_p0.ctor === 'GetAuthorization') {
-			if (_p0._0.ctor === 'Err') {
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{auth: _elm_lang$core$Maybe$Nothing}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			} else {
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							auth: _elm_lang$core$Maybe$Just(_p0._0._0)
-						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
+		_v0_3:
+		do {
+			switch (_p0.ctor) {
+				case 'GetAuthorization':
+					if (_p0._0.ctor === 'Err') {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{auth: _elm_lang$core$Maybe$Nothing}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					} else {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									auth: _elm_lang$core$Maybe$Just(_p0._0._0)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					}
+				case 'GetGazers':
+					if (_p0._0.ctor === 'Ok') {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									gazers: _elm_lang$core$Maybe$Just(_p0._0._0)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					} else {
+						break _v0_3;
+					}
+				default:
+					break _v0_3;
 			}
-		} else {
-			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-		}
+		} while(false);
+		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
 var _user$project$Main$state = 'w9erwlksjdf;kajdsf';
 var _user$project$Main$scope = 'repo:user';
@@ -9802,9 +9821,9 @@ var _user$project$Main$view = function (m) {
 			}
 		});
 };
-var _user$project$Main$Model = F2(
-	function (a, b) {
-		return {oauth: a, auth: b};
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {oauth: a, auth: b, gazers: c};
 	});
 var _user$project$Main$TokenData = F2(
 	function (a, b) {
@@ -9820,32 +9839,42 @@ var _user$project$Main$redirectParser = A2(
 			_evancz$url_parser$UrlParser$s(_user$project$Main$repoName),
 			_evancz$url_parser$UrlParser$stringParam('code')),
 		_evancz$url_parser$UrlParser$stringParam('state')));
+var _user$project$Main$GetGazers = function (a) {
+	return {ctor: 'GetGazers', _0: a};
+};
+var _user$project$Main$getGazersCmd = function (repo) {
+	var decodeGazers = _elm_lang$core$Json_Decode$list(
+		A2(_elm_lang$core$Json_Decode$field, 'login', _elm_lang$core$Json_Decode$string));
+	var url = A2(_elm_lang$core$Basics_ops['++'], 'https://api.github.com/user/starred/', repo);
+	var rqst = A2(_elm_lang$http$Http$get, url, decodeGazers);
+	return A2(_elm_lang$http$Http$send, _user$project$Main$GetGazers, rqst);
+};
+var _user$project$Main$init = function (location) {
+	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
+	var _p1 = oauth;
+	if (((_p1.ctor === 'Just') && (_p1._0._0.ctor === 'Just')) && (_p1._0._1.ctor === 'Just')) {
+		return {
+			ctor: '_Tuple2',
+			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
+			_1: _user$project$Main$getGazersCmd('dc25/solitaire')
+		};
+	} else {
+		return {
+			ctor: '_Tuple2',
+			_0: {oauth: _elm_lang$core$Maybe$Nothing, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
+	}
+};
 var _user$project$Main$GetAuthorization = function (a) {
 	return {ctor: 'GetAuthorization', _0: a};
 };
-var _user$project$Main$requestAuthorization = function (_p1) {
+var _user$project$Main$requestAuthorization = function (_p2) {
 	var url = 'https://github.com';
 	return A2(
 		_elm_lang$http$Http$send,
 		_user$project$Main$GetAuthorization,
 		_elm_lang$http$Http$getString(url));
-};
-var _user$project$Main$init = function (location) {
-	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
-	var _p2 = oauth;
-	if (((_p2.ctor === 'Just') && (_p2._0._0.ctor === 'Just')) && (_p2._0._1.ctor === 'Just')) {
-		return {
-			ctor: '_Tuple2',
-			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorization(_p2._0._0._0)
-		};
-	} else {
-		return {
-			ctor: '_Tuple2',
-			_0: {oauth: _elm_lang$core$Maybe$Nothing, auth: _elm_lang$core$Maybe$Nothing},
-			_1: _elm_lang$core$Platform_Cmd$none
-		};
-	}
 };
 var _user$project$Main$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
