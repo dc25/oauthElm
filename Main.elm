@@ -20,7 +20,8 @@ redirectUri = "https://dc25.github.io/" ++ repoName
 scope = "repo:user"
 state = "w9erwlksjdf;kajdsf"
 
-githubOauthUri = "https://github.com/login/oauth/authorize"
+-- githubOauthUri = "https://github.com/login/oauth/authorize"
+githubOauthUri = "http://172.17.0.2:8000/"
                      ++ "?client_id=" ++ clientId 
                      ++ "&redirect_uri=" ++ redirectUri 
                      ++ "&scope=" ++ scope 
