@@ -9756,7 +9756,7 @@ var _user$project$Main$clientSecret = 'b768bf69c0f44866330780a11d01cbf192ec0727'
 var _user$project$Main$clientId = '8256469ec6a458a2b111';
 var _user$project$Main$githubOauthUri = A2(
 	_elm_lang$core$Basics_ops['++'],
-	'http://172.17.0.2:8000/',
+	'https://github.com/login/oauth/authorize',
 	A2(
 		_elm_lang$core$Basics_ops['++'],
 		'?client_id=',
@@ -9843,7 +9843,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
 		_1: {ctor: '[]'}
 	};
-	var url = 'https://github.com/login/oauth/access_token';
+	var url = 'http://172.17.0.2:8000/';
 	var rq = _elm_lang$http$Http$request(
 		{method: 'POST', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
