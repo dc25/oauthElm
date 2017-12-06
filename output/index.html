@@ -9823,39 +9823,21 @@ var _user$project$Main$redirectParser = A2(
 var _user$project$Main$GetAuthorization = function (a) {
 	return {ctor: 'GetAuthorization', _0: a};
 };
-var _user$project$Main$requestAuthorization = function (code) {
-	var content = A2(
-		_elm_lang$core$Basics_ops['++'],
-		'client_id=',
-		A2(
-			_elm_lang$core$Basics_ops['++'],
-			_user$project$Main$clientId,
-			A2(
-				_elm_lang$core$Basics_ops['++'],
-				'&client_secret=',
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					_user$project$Main$clientSecret,
-					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
-	var body = A2(_elm_lang$http$Http$stringBody, 'text/plain;charset=utf-8', content);
-	var headers = {
-		ctor: '::',
-		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
-		_1: {ctor: '[]'}
-	};
-	var url = 'http://172.17.0.2:8000/';
-	var rq = _elm_lang$http$Http$request(
-		{method: 'GET', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
+var _user$project$Main$requestAuthorization = function (_p1) {
+	var url = 'http://172.17.0.2/';
+	return A2(
+		_elm_lang$http$Http$send,
+		_user$project$Main$GetAuthorization,
+		_elm_lang$http$Http$getString(url));
 };
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
-	var _p1 = oauth;
-	if (((_p1.ctor === 'Just') && (_p1._0._0.ctor === 'Just')) && (_p1._0._1.ctor === 'Just')) {
+	var _p2 = oauth;
+	if (((_p2.ctor === 'Just') && (_p2._0._0.ctor === 'Just')) && (_p2._0._1.ctor === 'Just')) {
 		return {
 			ctor: '_Tuple2',
 			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorization(_p1._0._0._0)
+			_1: _user$project$Main$requestAuthorization(_p2._0._0._0)
 		};
 	} else {
 		return {
