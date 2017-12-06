@@ -3,10 +3,7 @@ import Html.Attributes exposing (href)
 import Navigation exposing (..)
 import UrlParser as Url exposing (..)
 
-type alias Oauth = 
-    { code: String
-    , state: String
-    }
+type Oauth = Oauth (Maybe String) (Maybe String)
 
 type alias Model = 
     { oauth: Maybe Oauth
@@ -26,16 +23,19 @@ githubOauthUri = "https://github.com/login/oauth/authorize"
                      ++ "&scope=" ++ scope 
                      ++ "&state=" ++ state
 
-type Route = OauthCode (Maybe String) (Maybe String)
-route : Parser (Route -> a) a
-route = map OauthCode (s repoName <?> stringParam "code" <?> stringParam "state")
+
+oauthParser : Parser (Oauth -> a) a
+oauthParser = map Oauth (   s repoName 
+                        <?> stringParam "code" 
+                        <?> stringParam "state"
+                        )
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
-    let oauth = parsePath route location
+    let oauth = parsePath oauthParser location
     in case oauth of
-        Just (OauthCode (Just c) (Just s)) -> ({oauth = Just {code=c,state=s}}, Cmd.none)
-        _ -> ({oauth=Just {code="", state=""}}, Cmd.none)
+        Just _ -> ({oauth = oauth}, Cmd.none)
+        _ -> ({oauth = oauth}, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update _ m = (m, Cmd.none)
