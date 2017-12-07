@@ -9894,7 +9894,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 					_elm_lang$core$Basics_ops['++'],
 					_user$project$Main$clientSecret,
 					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
-	var body = A2(_elm_lang$http$Http$stringBody, 'text/plain', content);
+	var body = A2(_elm_lang$http$Http$stringBody, 'application/x-www-form-urlencoded', content);
 	var headers = {ctor: '[]'};
 	var url = 'https://github.com/login/oauth/access_token';
 	var rq = _elm_lang$http$Http$request(
