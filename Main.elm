@@ -51,38 +51,38 @@ getGazersCmd reponame =
   in
     Http.send GazersFetched request
 
-requestAuthorization : String -> Cmd Msg
-requestAuthorization _ =
-    let url = "https://github.com"
-    -- let url = "http://172.17.0.2:80/"
-    in Http.send GetAuthorization <|
-            Http.getString url
-
 ---requestAuthorization : String -> Cmd Msg
----requestAuthorization code =
----    let -- url = "https://github.com/login/oauth/access_token"
----        url = "http://172.17.0.2:8000/"
----
----        headers = [(Http.header "Accept" "application/json")]
----
----        content =    "client_id=" ++ clientId 
----                  ++ "&client_secret=" ++ clientSecret 
----                  ++ "&code=" ++ code
----
----        -- mimetype per: https://stackoverflow.com/questions/46677608/how-to-specify-body-media-type-for-elm-post-request
----        body = stringBody "text/plain;charset=utf-8" content
----
----        rq = request 
----                 { method = "GET"
----                 , headers = headers
----                 , url = url
----                 , body = body
----                 , expect = expectString 
----                 , timeout = Nothing
----                 , withCredentials = False
----                 }
----    in send GetAuthorization rq
----
+---requestAuthorization _ =
+---    let url = "https://github.com"
+---    -- let url = "http://172.17.0.2:80/"
+---    in Http.send GetAuthorization <|
+---            Http.getString url
+
+requestAuthorization : String -> Cmd Msg
+requestAuthorization code =
+    let -- url = "https://github.com/login/oauth/access_token"
+        url = "http://172.17.0.2:8000/"
+
+        headers = [(Http.header "Accept" "application/json")]
+
+        content =    "client_id=" ++ clientId 
+                  ++ "&client_secret=" ++ clientSecret 
+                  ++ "&code=" ++ code
+
+        -- mimetype per: https://stackoverflow.com/questions/46677608/how-to-specify-body-media-type-for-elm-post-request
+        body = stringBody "text/plain;charset=utf-8" content
+
+        rq = request 
+                 { method = "GET"
+                 , headers = headers
+                 , url = url
+                 , body = body
+                 , expect = expectString 
+                 , timeout = Nothing
+                 , withCredentials = False
+                 }
+    in send GetAuthorization rq
+
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     let oauth = parsePath redirectParser location
@@ -101,7 +101,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "github auth"]
+             [ a [href githubOauthUri] [text "auth"]
              , text (toString m)
              ] 
 
