@@ -83,9 +83,8 @@ requestAuthorizationHack code =
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
-    let url = "https://github.com/login/oauth/access_token/"
-        -- url = "http://localhost/"
-        -- url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
+    let -- url = "https://github.com/login/oauth/access_token/"
+        url = "http://127.0.0.1/"
 
         -- headers = [(Http.header "Accept" "application/json")]
         -- headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
@@ -98,6 +97,8 @@ requestAuthorization code =
         body = stringBody "application/x-www-form-urlencoded" content
         -- body = stringBody "" content
 
+        rqp = Http.post url  body JD.string
+
         rq = request 
                  { method = "POST"
                  , headers = headers
@@ -107,7 +108,7 @@ requestAuthorization code =
                  , timeout = Nothing
                  , withCredentials = False
                  }
-    in send (GetAuthorization ) rq
+    in send (GetAuthorization ) rqp 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
