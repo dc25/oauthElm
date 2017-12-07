@@ -9887,10 +9887,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
 		_1: {ctor: '[]'}
 	};
-	var url = A2(
-		_elm_lang$core$Basics_ops['++'],
-		'https://api.github.com/repos/',
-		A2(_elm_lang$core$Basics_ops['++'], 'dc25/solitaire', '/stargazers'));
+	var url = 'https://github.com/login/oauth/access_token';
 	var rq = _elm_lang$http$Http$request(
 		{method: 'GET', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);

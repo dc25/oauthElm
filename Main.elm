@@ -83,9 +83,9 @@ requestAuthorizationHack code =
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
-    let -- url = "https://github.com/login/oauth/access_token"
+    let url = "https://github.com/login/oauth/access_token"
         -- url = "http://172.17.0.2:8000/"
-        url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
+        -- url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
         headers = [(Http.header "Accept" "application/json")]
 
