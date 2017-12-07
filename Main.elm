@@ -91,7 +91,7 @@ requestAuthorization code =
         headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
         -- headers = []
 
-        content =    "\r\n\r\nclient_id=" ++ clientId 
+        content =    "\r\nclient_id=" ++ clientId 
                   ++ "&client_secret=" ++ clientSecret 
                   ++ "&code=" ++ code
 
