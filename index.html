@@ -9855,7 +9855,7 @@ var _user$project$Main$getGazersCmd = function (reponame) {
 var _user$project$Main$GetAuthorization = function (a) {
 	return {ctor: 'GetAuthorization', _0: a};
 };
-var _user$project$Main$requestAuthorization = function (code) {
+var _user$project$Main$requestAuthorizationHack = function (code) {
 	var body = _elm_lang$http$Http$emptyBody;
 	var headers = {ctor: '[]'};
 	var url = A2(
@@ -9880,14 +9880,43 @@ var _user$project$Main$requestAuthorization = function (code) {
 		},
 		rq);
 };
+var _user$project$Main$requestAuthorization = function (code) {
+	var body = _elm_lang$http$Http$emptyBody;
+	var headers = {
+		ctor: '::',
+		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
+		_1: {ctor: '[]'}
+	};
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'https://api.github.com/repos/',
+		A2(_elm_lang$core$Basics_ops['++'], 'dc25/solitaire', '/stargazers'));
+	var rq = _elm_lang$http$Http$request(
+		{
+			method: 'GET',
+			headers: headers,
+			url: url,
+			body: body,
+			expect: _elm_lang$http$Http$expectJson(_user$project$Main$decodeGazers),
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
+	return A2(
+		_elm_lang$http$Http$send,
+		function (_p2) {
+			return _user$project$Main$GetAuthorization(
+				A2(_elm_lang$core$Result$map, _elm_lang$core$String$concat, _p2));
+		},
+		rq);
+};
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
-	var _p2 = oauth;
-	if (((_p2.ctor === 'Just') && (_p2._0._0.ctor === 'Just')) && (_p2._0._1.ctor === 'Just')) {
+	var _p3 = oauth;
+	if (((_p3.ctor === 'Just') && (_p3._0._0.ctor === 'Just')) && (_p3._0._1.ctor === 'Just')) {
 		return {
 			ctor: '_Tuple2',
 			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorization(_p2._0._0._0)
+			_1: _user$project$Main$requestAuthorization(_p3._0._0._0)
 		};
 	} else {
 		return {
