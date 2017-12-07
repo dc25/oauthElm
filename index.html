@@ -9747,7 +9747,7 @@ var _user$project$Main$update = F2(
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					}
-				case 'GetGazers':
+				case 'GazersFetched':
 					if (_p0._0.ctor === 'Ok') {
 						return {
 							ctor: '_Tuple2',
@@ -9839,15 +9839,18 @@ var _user$project$Main$redirectParser = A2(
 			_evancz$url_parser$UrlParser$s(_user$project$Main$repoName),
 			_evancz$url_parser$UrlParser$stringParam('code')),
 		_evancz$url_parser$UrlParser$stringParam('state')));
-var _user$project$Main$GetGazers = function (a) {
-	return {ctor: 'GetGazers', _0: a};
+var _user$project$Main$GazersFetched = function (a) {
+	return {ctor: 'GazersFetched', _0: a};
 };
-var _user$project$Main$getGazersCmd = function (repo) {
+var _user$project$Main$getGazersCmd = function (reponame) {
 	var decodeGazers = _elm_lang$core$Json_Decode$list(
 		A2(_elm_lang$core$Json_Decode$field, 'login', _elm_lang$core$Json_Decode$string));
-	var url = A2(_elm_lang$core$Basics_ops['++'], 'https://api.github.com/user/starred/', repo);
-	var rqst = A2(_elm_lang$http$Http$get, url, decodeGazers);
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GetGazers, rqst);
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'https://api.github.com/repos/',
+		A2(_elm_lang$core$Basics_ops['++'], reponame, '/stargazers'));
+	var request = A2(_elm_lang$http$Http$get, url, decodeGazers);
+	return A2(_elm_lang$http$Http$send, _user$project$Main$GazersFetched, request);
 };
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
