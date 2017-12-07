@@ -87,7 +87,8 @@ requestAuthorization code =
         -- url = "http://172.17.0.2:8000/"
         -- url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
-        headers = [(Http.header "Accept" "application/json")]
+        -- headers = [(Http.header "Accept" "application/json")]
+        headers = []
 
         content =    "client_id=" ++ clientId 
                   ++ "&client_secret=" ++ clientSecret 

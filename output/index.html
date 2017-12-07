@@ -9895,11 +9895,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 					_user$project$Main$clientSecret,
 					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
 	var body = A2(_elm_lang$http$Http$stringBody, 'text/plain;charset=utf-8', content);
-	var headers = {
-		ctor: '::',
-		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
-		_1: {ctor: '[]'}
-	};
+	var headers = {ctor: '[]'};
 	var url = 'https://github.com/login/oauth/access_token';
 	var rq = _elm_lang$http$Http$request(
 		{method: 'POST', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
