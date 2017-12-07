@@ -3,17 +3,18 @@ import Html.Attributes exposing (href)
 import Navigation exposing (..)
 import UrlParser as Url exposing (..)
 import Http exposing (..)
+import Result exposing (..)
 import Json.Decode as JD exposing (decodeString, string, dict, field, list)  
 
 type TokenData = TokenData (Maybe String) (Maybe String)
 
 type alias Model = 
     { oauth: Maybe TokenData
-    , auth: Maybe (List String)
+    , auth: Maybe String
     , gazers: Maybe (List String)
     }
 
-type Msg = UrlChange Navigation.Location | GetAuthorization (Result Error (List String)) | GazersFetched (Result Error (List String))
+type Msg = UrlChange Navigation.Location | GetAuthorization (Result Error String) | GazersFetched (Result Error (List String))
 
 clientId = "8256469ec6a458a2b111"
 clientSecret = "b768bf69c0f44866330780a11d01cbf192ec0727"
@@ -30,10 +31,11 @@ githubOauthUri = "https://github.com/login/oauth/authorize"
 
 
 redirectParser : Parser (TokenData -> a) a
-redirectParser = map TokenData (   s repoName 
-                        <?> stringParam "code" 
-                        <?> stringParam "state"
-                        )
+redirectParser = Url.map TokenData 
+                     (   s repoName 
+                     <?> stringParam "code" 
+                     <?> stringParam "state"
+                     )
 
 
 
@@ -77,7 +79,7 @@ requestAuthorization code =
                  , timeout = Nothing
                  , withCredentials = False
                  }
-    in send GetAuthorization rq
+    in send (GetAuthorization << Result.map String.concat) rq
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
