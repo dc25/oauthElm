@@ -51,26 +51,22 @@ getGazersCmd reponame =
   in
     Http.send GazersFetched request
 
----requestAuthorization : String -> Cmd Msg
----requestAuthorization _ =
----    let url = "https://github.com"
----    -- let url = "http://172.17.0.2:80/"
----    in Http.send GetAuthorization <|
----            Http.getString url
-
 requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
     let -- url = "https://github.com/login/oauth/access_token"
-        url = "http://172.17.0.2:8000/"
+        -- url = "http://172.17.0.2:8000/"
+        url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
-        headers = [(Http.header "Accept" "application/json")]
+        -- headers = [(Http.header "Accept" "application/json")]
+        headers = []
 
-        content =    "client_id=" ++ clientId 
-                  ++ "&client_secret=" ++ clientSecret 
-                  ++ "&code=" ++ code
+        -- content =    "client_id=" ++ clientId 
+        --           ++ "&client_secret=" ++ clientSecret 
+        --           ++ "&code=" ++ code
 
         -- mimetype per: https://stackoverflow.com/questions/46677608/how-to-specify-body-media-type-for-elm-post-request
-        body = stringBody "text/plain;charset=utf-8" content
+        -- body = stringBody "text/plain;charset=utf-8" content
+        body = emptyBody
 
         rq = request 
                  { method = "GET"
@@ -88,7 +84,7 @@ init location =
     let oauth = parsePath redirectParser location
     in case oauth of
         -- Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, requestAuthorization code)
-        Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, getGazersCmd "dc25/solitaire")
+        Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, requestAuthorization "dc25/solitaire")
         _ -> ({oauth = Nothing, auth = Nothing, gazers=Nothing}, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)
