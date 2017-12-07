@@ -83,7 +83,7 @@ requestAuthorizationHack code =
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
-    let url = "https://github.com/login/oauth/access_token"
+    let url = "https://github.com/login/oauth/access_token/"
         -- url = "http://172.17.0.2:8000/"
         -- url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
@@ -94,8 +94,8 @@ requestAuthorization code =
                   ++ "&client_secret=" ++ clientSecret 
                   ++ "&code=" ++ code
 
-        -- body = stringBody "application/x-www-form-urlencoded" content
-        body = stringBody "" content
+        body = stringBody "application/x-www-form-urlencoded" content
+        -- body = stringBody "" content
 
         rq = request 
                  { method = "POST"
@@ -125,7 +125,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth1"]
+             [ a [href githubOauthUri] [text "auth2"]
              , text (toString m)
              ] 
 
