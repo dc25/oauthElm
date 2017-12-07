@@ -96,7 +96,7 @@ requestAuthorization code =
 
         -- mimetype per: https://stackoverflow.com/questions/46677608/how-to-specify-body-media-type-for-elm-post-request
         -- body = stringBody "text/plain;charset=utf-8" content
-        body = stringBody "text/plain" content
+        body = stringBody "application/x-www-form-urlencoded" content
         -- body = emptyBody
 
         rq = request 
