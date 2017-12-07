@@ -102,11 +102,11 @@ requestAuthorization code =
                  , headers = headers
                  , url = url
                  , body = body
-                 , expect = expectJson decodeGazers
+                 , expect = expectString
                  , timeout = Nothing
                  , withCredentials = False
                  }
-    in send (GetAuthorization << Result.map String.concat) rq
+    in send (GetAuthorization ) rq
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
