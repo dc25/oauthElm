@@ -9863,7 +9863,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 		'https://api.github.com/repos/',
 		A2(_elm_lang$core$Basics_ops['++'], 'dc25/solitaire', '/stargazers'));
 	var rq = _elm_lang$http$Http$request(
-		{method: 'GET', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
+		{method: 'POST', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$init = function (location) {
@@ -9873,7 +9873,7 @@ var _user$project$Main$init = function (location) {
 		return {
 			ctor: '_Tuple2',
 			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorization('dc25/solitaire')
+			_1: _user$project$Main$requestAuthorization(_p1._0._0._0)
 		};
 	} else {
 		return {

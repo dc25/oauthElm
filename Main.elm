@@ -69,7 +69,7 @@ requestAuthorization code =
         body = emptyBody
 
         rq = request 
-                 { method = "GET"
+                 { method = "POST"
                  , headers = headers
                  , url = url
                  , body = body
@@ -83,8 +83,7 @@ init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     let oauth = parsePath redirectParser location
     in case oauth of
-        -- Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, requestAuthorization code)
-        Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, requestAuthorization "dc25/solitaire")
+        Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, requestAuthorization code)
         _ -> ({oauth = Nothing, auth = Nothing, gazers=Nothing}, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)
