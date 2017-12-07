@@ -13,7 +13,7 @@ type alias Model =
     , gazers: Maybe (List String)
     }
 
-type Msg = UrlChange Navigation.Location | GetAuthorization (Result Error String) | GetGazers (Result Error (List String))
+type Msg = UrlChange Navigation.Location | GetAuthorization (Result Error String) | GazersFetched (Result Error (List String))
 
 clientId = "8256469ec6a458a2b111"
 clientSecret = "b768bf69c0f44866330780a11d01cbf192ec0727"
@@ -35,15 +35,21 @@ redirectParser = map TokenData (   s repoName
                         <?> stringParam "state"
                         )
 
+
+
+
+
+
 getGazersCmd : String -> Cmd Msg
-getGazersCmd repo = 
+getGazersCmd reponame = 
    let
-       url = "https://api.github.com/user/starred/" ++ repo 
+       url = "https://api.github.com/repos/" ++ reponame ++ "/stargazers"
 
        decodeGazers = list (field "login" JD.string)
 
-       rqst = Http.get url decodeGazers
-   in Http.send GetGazers rqst
+       request = Http.get url decodeGazers
+  in
+    Http.send GazersFetched request
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization _ =
@@ -90,7 +96,7 @@ update msg model =
     case msg of 
         GetAuthorization (Err _) -> ({model | auth = Nothing} , Cmd.none)
         GetAuthorization (Ok auth) -> ({model | auth = Just auth} , Cmd.none)
-        GetGazers (Ok gazers) -> ({model | gazers = Just gazers} , Cmd.none)
+        GazersFetched (Ok gazers) -> ({model | gazers = Just gazers} , Cmd.none)
         _ -> (model, Cmd.none)
 
 view : Model -> Html Msg
