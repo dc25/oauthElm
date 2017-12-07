@@ -9812,7 +9812,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('authm'),
+					_0: _elm_lang$html$Html$text('authp'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9898,7 +9898,19 @@ var _user$project$Main$requestAuthorization = function (code) {
 	var headers = {ctor: '[]'};
 	var url = 'https://github.com/login/oauth/access_token';
 	var rq = _elm_lang$http$Http$request(
-		{method: 'POST', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
+		{
+			method: 'POST',
+			headers: headers,
+			url: url,
+			body: body,
+			expect: _elm_lang$http$Http$expectStringResponse(
+				function (resp) {
+					return _elm_lang$core$Result$Ok(
+						_elm_lang$core$Basics$toString(resp));
+				}),
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$init = function (location) {
