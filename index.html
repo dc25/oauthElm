@@ -9872,16 +9872,22 @@ var _user$project$Main$requestAuthorization = function (code) {
 			timeout: _elm_lang$core$Maybe$Nothing,
 			withCredentials: false
 		});
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
+	return A2(
+		_elm_lang$http$Http$send,
+		function (_p1) {
+			return _user$project$Main$GetAuthorization(
+				A2(_elm_lang$core$Result$map, _elm_lang$core$String$concat, _p1));
+		},
+		rq);
 };
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
-	var _p1 = oauth;
-	if (((_p1.ctor === 'Just') && (_p1._0._0.ctor === 'Just')) && (_p1._0._1.ctor === 'Just')) {
+	var _p2 = oauth;
+	if (((_p2.ctor === 'Just') && (_p2._0._0.ctor === 'Just')) && (_p2._0._1.ctor === 'Just')) {
 		return {
 			ctor: '_Tuple2',
 			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorization(_p1._0._0._0)
+			_1: _user$project$Main$requestAuthorization(_p2._0._0._0)
 		};
 	} else {
 		return {
