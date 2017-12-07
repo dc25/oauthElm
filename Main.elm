@@ -60,7 +60,7 @@ requestAuthorizationHack code =
         url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
         -- headers = [(Http.header "Accept" "application/json")]
-        headers = []
+        headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
 
         -- content =    "client_id=" ++ clientId 
         --           ++ "&client_secret=" ++ clientSecret 
@@ -88,7 +88,8 @@ requestAuthorization code =
         -- url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
         -- headers = [(Http.header "Accept" "application/json")]
-        headers = []
+        headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
+        -- headers = []
 
         content =    "\r\n\r\nclient_id=" ++ clientId 
                   ++ "&client_secret=" ++ clientSecret 
@@ -125,7 +126,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth3"]
+             [ a [href githubOauthUri] [text "auth4"]
              , text (toString m)
              ] 
 
