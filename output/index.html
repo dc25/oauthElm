@@ -9724,29 +9724,19 @@ var _evancz$url_parser$UrlParser$intParam = function (name) {
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
-		_v0_3:
+		_v0_2:
 		do {
 			switch (_p0.ctor) {
 				case 'GetAuthorization':
-					if (_p0._0.ctor === 'Err') {
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{auth: _elm_lang$core$Maybe$Nothing}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					} else {
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									auth: _elm_lang$core$Maybe$Just(_p0._0._0)
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					}
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								auth: _elm_lang$core$Maybe$Just(_p0._0)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
 				case 'GazersFetched':
 					if (_p0._0.ctor === 'Ok') {
 						return {
@@ -9759,10 +9749,10 @@ var _user$project$Main$update = F2(
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					} else {
-						break _v0_3;
+						break _v0_2;
 					}
 				default:
-					break _v0_3;
+					break _v0_2;
 			}
 		} while(false);
 		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
@@ -9812,7 +9802,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('auth8'),
+					_0: _elm_lang$html$Html$text('auth9'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {

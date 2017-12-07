@@ -10,7 +10,7 @@ type TokenData = TokenData (Maybe String) (Maybe String)
 
 type alias Model = 
     { oauth: Maybe TokenData
-    , auth: Maybe String
+    , auth: Maybe (Result Error String)
     , gazers: Maybe (List String)
     }
 
@@ -119,14 +119,13 @@ init location =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = 
     case msg of 
-        GetAuthorization (Err _) -> ({model | auth = Nothing} , Cmd.none)
-        GetAuthorization (Ok auth) -> ({model | auth = Just auth} , Cmd.none)
+        GetAuthorization (res) -> ({model | auth = Just res} , Cmd.none)
         GazersFetched (Ok gazers) -> ({model | gazers = Just gazers} , Cmd.none)
         _ -> (model, Cmd.none)
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth8"]
+             [ a [href githubOauthUri] [text "auth9"]
              , text (toString m)
              ] 
 
