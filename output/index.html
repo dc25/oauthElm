@@ -9767,6 +9767,8 @@ var _user$project$Main$update = F2(
 		} while(false);
 		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
+var _user$project$Main$decodeGazers = _elm_lang$core$Json_Decode$list(
+	A2(_elm_lang$core$Json_Decode$field, 'login', _elm_lang$core$Json_Decode$string));
 var _user$project$Main$state = 'w9erwlksjdf;kajdsf';
 var _user$project$Main$scope = 'repo:user';
 var _user$project$Main$repoName = 'oauthElm';
@@ -9843,13 +9845,11 @@ var _user$project$Main$GazersFetched = function (a) {
 	return {ctor: 'GazersFetched', _0: a};
 };
 var _user$project$Main$getGazersCmd = function (reponame) {
-	var decodeGazers = _elm_lang$core$Json_Decode$list(
-		A2(_elm_lang$core$Json_Decode$field, 'login', _elm_lang$core$Json_Decode$string));
 	var url = A2(
 		_elm_lang$core$Basics_ops['++'],
 		'https://api.github.com/repos/',
 		A2(_elm_lang$core$Basics_ops['++'], reponame, '/stargazers'));
-	var request = A2(_elm_lang$http$Http$get, url, decodeGazers);
+	var request = A2(_elm_lang$http$Http$get, url, _user$project$Main$decodeGazers);
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GazersFetched, request);
 };
 var _user$project$Main$GetAuthorization = function (a) {
@@ -9863,7 +9863,15 @@ var _user$project$Main$requestAuthorization = function (code) {
 		'https://api.github.com/repos/',
 		A2(_elm_lang$core$Basics_ops['++'], 'dc25/solitaire', '/stargazers'));
 	var rq = _elm_lang$http$Http$request(
-		{method: 'POST', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
+		{
+			method: 'GET',
+			headers: headers,
+			url: url,
+			body: body,
+			expect: _elm_lang$http$Http$expectJson(_user$project$Main$decodeGazers),
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$init = function (location) {

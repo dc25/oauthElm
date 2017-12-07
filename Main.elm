@@ -9,11 +9,11 @@ type TokenData = TokenData (Maybe String) (Maybe String)
 
 type alias Model = 
     { oauth: Maybe TokenData
-    , auth: Maybe String
+    , auth: Maybe (List String)
     , gazers: Maybe (List String)
     }
 
-type Msg = UrlChange Navigation.Location | GetAuthorization (Result Error String) | GazersFetched (Result Error (List String))
+type Msg = UrlChange Navigation.Location | GetAuthorization (Result Error (List String)) | GazersFetched (Result Error (List String))
 
 clientId = "8256469ec6a458a2b111"
 clientSecret = "b768bf69c0f44866330780a11d01cbf192ec0727"
@@ -38,6 +38,7 @@ redirectParser = map TokenData (   s repoName
 
 
 
+decodeGazers = list (field "login" JD.string)
 
 
 getGazersCmd : String -> Cmd Msg
@@ -45,7 +46,6 @@ getGazersCmd reponame =
    let
        url = "https://api.github.com/repos/" ++ reponame ++ "/stargazers"
 
-       decodeGazers = list (field "login" JD.string)
 
        request = Http.get url decodeGazers
   in
@@ -69,11 +69,11 @@ requestAuthorization code =
         body = emptyBody
 
         rq = request 
-                 { method = "POST"
+                 { method = "GET"
                  , headers = headers
                  , url = url
                  , body = body
-                 , expect = expectString 
+                 , expect = expectJson decodeGazers
                  , timeout = Nothing
                  , withCredentials = False
                  }
