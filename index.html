@@ -9810,7 +9810,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('github auth'),
+					_0: _elm_lang$html$Html$text('auth'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9872,12 +9872,30 @@ var _user$project$Main$init = function (location) {
 var _user$project$Main$GetAuthorization = function (a) {
 	return {ctor: 'GetAuthorization', _0: a};
 };
-var _user$project$Main$requestAuthorization = function (_p2) {
-	var url = 'https://github.com';
-	return A2(
-		_elm_lang$http$Http$send,
-		_user$project$Main$GetAuthorization,
-		_elm_lang$http$Http$getString(url));
+var _user$project$Main$requestAuthorization = function (code) {
+	var content = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'client_id=',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_user$project$Main$clientId,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'&client_secret=',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					_user$project$Main$clientSecret,
+					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
+	var body = A2(_elm_lang$http$Http$stringBody, 'text/plain;charset=utf-8', content);
+	var headers = {
+		ctor: '::',
+		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
+		_1: {ctor: '[]'}
+	};
+	var url = 'http://172.17.0.2:8000/';
+	var rq = _elm_lang$http$Http$request(
+		{method: 'GET', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
+	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
