@@ -89,13 +89,13 @@ requestAuthorization code =
 
         headers = [(Http.header "Accept" "application/json")]
 
-        -- content =    "client_id=" ++ clientId 
-        --           ++ "&client_secret=" ++ clientSecret 
-        --           ++ "&code=" ++ code
+        content =    "client_id=" ++ clientId 
+                  ++ "&client_secret=" ++ clientSecret 
+                  ++ "&code=" ++ code
 
         -- mimetype per: https://stackoverflow.com/questions/46677608/how-to-specify-body-media-type-for-elm-post-request
-        -- body = stringBody "text/plain;charset=utf-8" content
-        body = emptyBody
+        body = stringBody "text/plain;charset=utf-8" content
+        -- body = emptyBody
 
         rq = request 
                  { method = "POST"
@@ -125,7 +125,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authb"]
+             [ a [href githubOauthUri] [text "authc"]
              , text (toString m)
              ] 
 
