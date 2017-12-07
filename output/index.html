@@ -9812,7 +9812,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('authk'),
+					_0: _elm_lang$html$Html$text('authm'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9893,7 +9893,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 				A2(
 					_elm_lang$core$Basics_ops['++'],
 					_user$project$Main$clientSecret,
-					A2(_elm_lang$core$Basics_ops['++'], '&code=', '00938038039485034')))));
+					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
 	var body = A2(_elm_lang$http$Http$stringBody, 'application/x-www-form-urlencoded', content);
 	var headers = {ctor: '[]'};
 	var url = 'https://github.com/login/oauth/access_token';

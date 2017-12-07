@@ -92,8 +92,7 @@ requestAuthorization code =
 
         content =    "client_id=" ++ clientId 
                   ++ "&client_secret=" ++ clientSecret 
-                  ++ "&code=" ++ "00938038039485034"
-                  -- ++ "&code=" ++ code
+                  ++ "&code=" ++ code
 
         -- mimetype per: https://stackoverflow.com/questions/46677608/how-to-specify-body-media-type-for-elm-post-request
         -- body = stringBody "text/plain;charset=utf-8" content
@@ -128,7 +127,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authk"]
+             [ a [href githubOauthUri] [text "authm"]
              , text (toString m)
              ] 
 
