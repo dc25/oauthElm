@@ -9812,7 +9812,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('authb'),
+					_0: _elm_lang$html$Html$text('authc'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9881,7 +9881,20 @@ var _user$project$Main$requestAuthorizationHack = function (code) {
 		rq);
 };
 var _user$project$Main$requestAuthorization = function (code) {
-	var body = _elm_lang$http$Http$emptyBody;
+	var content = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'client_id=',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_user$project$Main$clientId,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'&client_secret=',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					_user$project$Main$clientSecret,
+					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
+	var body = A2(_elm_lang$http$Http$stringBody, 'text/plain;charset=utf-8', content);
 	var headers = {
 		ctor: '::',
 		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
