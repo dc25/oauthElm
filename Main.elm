@@ -104,7 +104,7 @@ requestAuthorization code =
                  , headers = headers
                  , url = url
                  , body = body
-                 , expect = expectString
+                 , expect = expectStringResponse (\resp -> Ok (toString resp))
                  , timeout = Nothing
                  , withCredentials = False
                  }
@@ -127,7 +127,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authm"]
+             [ a [href githubOauthUri] [text "authp"]
              , text (toString m)
              ] 
 
