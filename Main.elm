@@ -95,7 +95,8 @@ requestAuthorization code =
                   ++ "&code=" ++ code
 
         -- mimetype per: https://stackoverflow.com/questions/46677608/how-to-specify-body-media-type-for-elm-post-request
-        body = stringBody "text/plain;charset=utf-8" content
+        -- body = stringBody "text/plain;charset=utf-8" content
+        body = stringBody "text/plain" content
         -- body = emptyBody
 
         rq = request 
@@ -126,7 +127,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authd"]
+             [ a [href githubOauthUri] [text "authe"]
              , text (toString m)
              ] 
 
