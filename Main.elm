@@ -98,7 +98,7 @@ requestAuthorization code =
         body = emptyBody
 
         rq = request 
-                 { method = "GET"
+                 { method = "POST"
                  , headers = headers
                  , url = url
                  , body = body
@@ -125,7 +125,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth"]
+             [ a [href githubOauthUri] [text "authb"]
              , text (toString m)
              ] 
 
