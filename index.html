@@ -9852,6 +9852,20 @@ var _user$project$Main$getGazersCmd = function (reponame) {
 	var request = A2(_elm_lang$http$Http$get, url, decodeGazers);
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GazersFetched, request);
 };
+var _user$project$Main$GetAuthorization = function (a) {
+	return {ctor: 'GetAuthorization', _0: a};
+};
+var _user$project$Main$requestAuthorization = function (code) {
+	var body = _elm_lang$http$Http$emptyBody;
+	var headers = {ctor: '[]'};
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'https://api.github.com/repos/',
+		A2(_elm_lang$core$Basics_ops['++'], 'dc25/solitaire', '/stargazers'));
+	var rq = _elm_lang$http$Http$request(
+		{method: 'GET', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
+	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
+};
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
 	var _p1 = oauth;
@@ -9859,7 +9873,7 @@ var _user$project$Main$init = function (location) {
 		return {
 			ctor: '_Tuple2',
 			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$getGazersCmd('dc25/solitaire')
+			_1: _user$project$Main$requestAuthorization('dc25/solitaire')
 		};
 	} else {
 		return {
@@ -9868,34 +9882,6 @@ var _user$project$Main$init = function (location) {
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	}
-};
-var _user$project$Main$GetAuthorization = function (a) {
-	return {ctor: 'GetAuthorization', _0: a};
-};
-var _user$project$Main$requestAuthorization = function (code) {
-	var content = A2(
-		_elm_lang$core$Basics_ops['++'],
-		'client_id=',
-		A2(
-			_elm_lang$core$Basics_ops['++'],
-			_user$project$Main$clientId,
-			A2(
-				_elm_lang$core$Basics_ops['++'],
-				'&client_secret=',
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					_user$project$Main$clientSecret,
-					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
-	var body = A2(_elm_lang$http$Http$stringBody, 'text/plain;charset=utf-8', content);
-	var headers = {
-		ctor: '::',
-		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
-		_1: {ctor: '[]'}
-	};
-	var url = 'http://172.17.0.2:8000/';
-	var rq = _elm_lang$http$Http$request(
-		{method: 'GET', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
