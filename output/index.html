@@ -9812,7 +9812,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('authjg'),
+					_0: _elm_lang$html$Html$text('authk'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9880,23 +9880,6 @@ var _user$project$Main$requestAuthorizationHack = function (code) {
 		},
 		rq);
 };
-var _user$project$Main$init = function (location) {
-	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
-	var _p2 = oauth;
-	if (((_p2.ctor === 'Just') && (_p2._0._0.ctor === 'Just')) && (_p2._0._1.ctor === 'Just')) {
-		return {
-			ctor: '_Tuple2',
-			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorizationHack(_p2._0._0._0)
-		};
-	} else {
-		return {
-			ctor: '_Tuple2',
-			_0: {oauth: _elm_lang$core$Maybe$Nothing, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
-			_1: _elm_lang$core$Platform_Cmd$none
-		};
-	}
-};
 var _user$project$Main$requestAuthorization = function (code) {
 	var content = A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -9917,6 +9900,23 @@ var _user$project$Main$requestAuthorization = function (code) {
 	var rq = _elm_lang$http$Http$request(
 		{method: 'POST', headers: headers, url: url, body: body, expect: _elm_lang$http$Http$expectString, timeout: _elm_lang$core$Maybe$Nothing, withCredentials: false});
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
+};
+var _user$project$Main$init = function (location) {
+	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
+	var _p2 = oauth;
+	if (((_p2.ctor === 'Just') && (_p2._0._0.ctor === 'Just')) && (_p2._0._1.ctor === 'Just')) {
+		return {
+			ctor: '_Tuple2',
+			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
+			_1: _user$project$Main$requestAuthorization(_p2._0._0._0)
+		};
+	} else {
+		return {
+			ctor: '_Tuple2',
+			_0: {oauth: _elm_lang$core$Maybe$Nothing, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
+	}
 };
 var _user$project$Main$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
