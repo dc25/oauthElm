@@ -90,7 +90,7 @@ requestAuthorization code =
         -- headers = [(Http.header "Accept" "application/json")]
         headers = []
 
-        content =    "client_id=" ++ clientId 
+        content =    "\r\n\r\nclient_id=" ++ clientId 
                   ++ "&client_secret=" ++ clientSecret 
                   ++ "&code=" ++ code
 
@@ -125,7 +125,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth2"]
+             [ a [href githubOauthUri] [text "auth3"]
              , text (toString m)
              ] 
 
