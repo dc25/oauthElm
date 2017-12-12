@@ -60,7 +60,8 @@ requestAuthorizationHack code =
         url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
         -- headers = [(Http.header "Accept" "application/json")]
-        headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
+        -- headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
+        headers = []
 
         -- content =    "client_id=" ++ clientId 
         --           ++ "&client_secret=" ++ clientSecret 

@@ -9847,11 +9847,7 @@ var _user$project$Main$GetAuthorization = function (a) {
 };
 var _user$project$Main$requestAuthorizationHack = function (code) {
 	var body = _elm_lang$http$Http$emptyBody;
-	var headers = {
-		ctor: '::',
-		_0: A2(_elm_lang$http$Http$header, 'Content-Type', 'application/x-www-form-urlencoded'),
-		_1: {ctor: '[]'}
-	};
+	var headers = {ctor: '[]'};
 	var url = A2(
 		_elm_lang$core$Basics_ops['++'],
 		'https://api.github.com/repos/',
