@@ -9848,10 +9848,7 @@ var _user$project$Main$GetAuthorization = function (a) {
 var _user$project$Main$requestAuthorizationHack = function (code) {
 	var body = _elm_lang$http$Http$emptyBody;
 	var headers = {ctor: '[]'};
-	var url = A2(
-		_elm_lang$core$Basics_ops['++'],
-		'https://api.github.com/repos/',
-		A2(_elm_lang$core$Basics_ops['++'], 'dc25/solitaire', '/stargazers'));
+	var url = 'http://172.17.0.2:8000/';
 	var rq = _elm_lang$http$Http$request(
 		{
 			method: 'GET',
