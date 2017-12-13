@@ -9802,7 +9802,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('authM'),
+					_0: _elm_lang$html$Html$text('authN'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9902,7 +9902,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 			timeout: _elm_lang$core$Maybe$Nothing,
 			withCredentials: false
 		});
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
+	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rqp);
 };
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
