@@ -111,7 +111,7 @@ requestAuthorization code =
                  , timeout = Nothing
                  , withCredentials = False
                  }
-    in send (GetAuthorization ) rq
+    in send (GetAuthorization ) rqp
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
@@ -129,7 +129,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authM"]
+             [ a [href githubOauthUri] [text "authN"]
              , text (toString m)
              ] 
 
