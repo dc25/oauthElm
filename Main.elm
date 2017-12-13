@@ -56,9 +56,9 @@ getGazersCmd reponame =
 requestAuthorizationHack : String -> Cmd Msg
 requestAuthorizationHack code =
     let -- url = "https://github.com/login/oauth/access_token"
-        -- url = "http://172.17.0.2:8000/"
+        url = "http://172.17.0.2:8000/"
         -- url = "http://127.0.0.1:8000/"
-        url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
+        -- url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
         -- headers = [(Http.header "Accept" "application/json")]
         -- headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
@@ -103,12 +103,12 @@ requestAuthorization code =
         rqp = Http.post url  body JD.string
 
         rq = request 
-                 -- { method = "POST"
-                 { method = "GET"
+                 { method = "POST"
+                 -- { method = "GET"
                  , headers = headers
                  , url = url
-                 -- , body = body
-                 , body = emptyBody
+                 , body = body
+                 -- , body = emptyBody
                  , expect = expectStringResponse (\resp -> Ok (toString resp))
                  , timeout = Nothing
                  , withCredentials = False
@@ -119,7 +119,7 @@ init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     let oauth = parsePath redirectParser location
     in case oauth of
-        Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, requestAuthorizationHack code)
+        Just (TokenData (Just code) (Just state)) -> ({oauth = oauth, auth = Nothing, gazers=Nothing}, requestAuthorization code)
         _ -> ({oauth = Nothing, auth = Nothing, gazers=Nothing}, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -131,7 +131,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authY"]
+             [ a [href githubOauthUri] [text "buthA"]
              , text (toString m)
              ] 
 
