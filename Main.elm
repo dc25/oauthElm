@@ -91,8 +91,8 @@ requestAuthorization code =
         -- url = "http://172.17.0.2:8000/"
 
         -- headers = [(Http.header "Accept" "application/json")]
-        headers = [ (Http.header "Content-Type" "application/x-www-form-urlencoded")
-                  , (Http.header "Accept" "application/json")
+        headers = [ -- (Http.header "Content-Type" "application/x-www-form-urlencoded")
+                  (Http.header "Accept" "application/json")
                   ]
 
         content =    "client_id=" ++ clientId 
@@ -131,7 +131,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "buthc"]
+             [ a [href githubOauthUri] [text "buthd"]
              , text (toString m)
              ] 
 
