@@ -9802,7 +9802,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('authC'),
+					_0: _elm_lang$html$Html$text('authD'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9886,7 +9886,7 @@ var _user$project$Main$requestAuthorization = function (code) {
 					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
 	var body = A2(_elm_lang$http$Http$stringBody, 'application/x-www-form-urlencoded', content);
 	var headers = {ctor: '[]'};
-	var url = 'http://127.0.0.1/';
+	var url = 'http://127.0.0.1:8000/';
 	var rqp = A3(_elm_lang$http$Http$post, url, body, _elm_lang$core$Json_Decode$string);
 	var rq = _elm_lang$http$Http$request(
 		{
