@@ -85,8 +85,8 @@ requestAuthorizationHack code =
 requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
     let -- url = "https://github.com/login/oauth/access_token/"
-        url = "http://127.0.0.1:8000/"
-        -- url = "http://172.17.0.2:8000/"
+        -- url = "http://127.0.0.1:8000/"
+        url = "http://172.17.0.2:8000/"
 
         -- headers = [(Http.header "Accept" "application/json")]
         -- headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
@@ -129,7 +129,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authL"]
+             [ a [href githubOauthUri] [text "authM"]
              , text (toString m)
              ] 
 
