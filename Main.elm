@@ -55,8 +55,8 @@ getGazersCmd reponame =
 
 requestAuthorizationHack : String -> Cmd Msg
 requestAuthorizationHack code =
-    let -- url = "https://github.com/login/oauth/access_token"
-        url = "http://172.17.0.2:8000/"
+    let url = "https://github.com/login/oauth/access_token"
+        -- url = "http://172.17.0.2:8000/"
         -- url = "http://127.0.0.1:8000/"
         -- url = "https://api.github.com/repos/" ++ "dc25/solitaire" ++ "/stargazers"
 
@@ -131,7 +131,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authW"]
+             [ a [href githubOauthUri] [text "authX"]
              , text (toString m)
              ] 
 
