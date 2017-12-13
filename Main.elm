@@ -86,6 +86,7 @@ requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
     let -- url = "https://github.com/login/oauth/access_token/"
         url = "http://127.0.0.1:8000/"
+        -- url = "http://172.17.0.2:8000/"
 
         -- headers = [(Http.header "Accept" "application/json")]
         -- headers = [(Http.header "Content-Type" "application/x-www-form-urlencoded")]
@@ -109,7 +110,7 @@ requestAuthorization code =
                  , timeout = Nothing
                  , withCredentials = False
                  }
-    in send (GetAuthorization ) rqp 
+    in send (GetAuthorization ) rq
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
