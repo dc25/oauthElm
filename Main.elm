@@ -130,7 +130,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authQ"]
+             [ a [href githubOauthUri] [text "authR"]
              , text (toString m)
              ] 
 
