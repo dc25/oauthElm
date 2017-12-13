@@ -9802,7 +9802,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('authX'),
+					_0: _elm_lang$html$Html$text('authY'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9848,7 +9848,10 @@ var _user$project$Main$GetAuthorization = function (a) {
 var _user$project$Main$requestAuthorizationHack = function (code) {
 	var body = _elm_lang$http$Http$emptyBody;
 	var headers = {ctor: '[]'};
-	var url = 'https://github.com/login/oauth/access_token';
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'https://api.github.com/repos/',
+		A2(_elm_lang$core$Basics_ops['++'], 'dc25/solitaire', '/stargazers'));
 	var rq = _elm_lang$http$Http$request(
 		{
 			method: 'GET',
