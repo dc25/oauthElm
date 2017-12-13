@@ -102,8 +102,8 @@ requestAuthorization code =
         rqp = Http.post url  body JD.string
 
         rq = request 
-                 -- { method = "POST"
-                 { method = "GET"
+                 { method = "POST"
+                 -- { method = "GET"
                  , headers = headers
                  , url = url
                  , body = body
@@ -129,7 +129,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authK"]
+             [ a [href githubOauthUri] [text "authL"]
              , text (toString m)
              ] 
 
