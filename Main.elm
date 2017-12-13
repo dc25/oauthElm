@@ -102,8 +102,8 @@ requestAuthorization code =
         rqp = Http.post url  body JD.string
 
         rq = request 
-                 { method = "POST"
-                 -- { method = "GET"
+                 -- { method = "POST"
+                 { method = "GET"
                  , headers = headers
                  , url = url
                  , body = body
@@ -111,7 +111,7 @@ requestAuthorization code =
                  , timeout = Nothing
                  , withCredentials = False
                  }
-    in send (GetAuthorization ) rqp
+    in send (GetAuthorization ) rq
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
@@ -129,7 +129,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "authN"]
+             [ a [href githubOauthUri] [text "authO"]
              , text (toString m)
              ] 
 
