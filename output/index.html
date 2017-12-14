@@ -9814,7 +9814,6 @@ var _user$project$Main$GetAuthorization = function (a) {
 	return {ctor: 'GetAuthorization', _0: a};
 };
 var _user$project$Main$requestAuthorization = function (code) {
-	var tokenDecoder = A2(_elm_lang$core$Json_Decode$field, 'access_token', _elm_lang$core$Json_Decode$string);
 	var content = A2(
 		_elm_lang$core$Basics_ops['++'],
 		'client_id=',
@@ -9828,24 +9827,21 @@ var _user$project$Main$requestAuthorization = function (code) {
 					_elm_lang$core$Basics_ops['++'],
 					_user$project$Main$clientSecret,
 					A2(_elm_lang$core$Basics_ops['++'], '&code=', code)))));
-	var body = A2(_elm_lang$http$Http$stringBody, 'application/x-www-form-urlencoded', content);
-	var headers = {
-		ctor: '::',
-		_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
-		_1: {ctor: '[]'}
-	};
-	var url = 'https://github.com/login/oauth/access_token/';
 	var rq = _elm_lang$http$Http$request(
 		{
 			method: 'POST',
-			headers: headers,
-			url: url,
-			body: body,
-			expect: _elm_lang$http$Http$expectJson(tokenDecoder),
+			headers: {
+				ctor: '::',
+				_0: A2(_elm_lang$http$Http$header, 'Accept', 'application/json'),
+				_1: {ctor: '[]'}
+			},
+			url: 'https://github.com/login/oauth/access_token/',
+			body: A2(_elm_lang$http$Http$stringBody, 'application/x-www-form-urlencoded', content),
+			expect: _elm_lang$http$Http$expectJson(
+				A2(_elm_lang$core$Json_Decode$field, 'access_token', _elm_lang$core$Json_Decode$string)),
 			timeout: _elm_lang$core$Maybe$Nothing,
 			withCredentials: false
 		});
-	var prq = A3(_elm_lang$http$Http$post, url, body, tokenDecoder);
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$init = function (location) {

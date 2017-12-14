@@ -40,29 +40,19 @@ redirectParser = Url.map TokenData
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
-    let url = "https://github.com/login/oauth/access_token/"
-        headers = [ (Http.header "Accept" "application/json") ]
-
-        content =    "client_id=" ++ clientId 
+    let content =    "client_id=" ++ clientId 
                   ++ "&client_secret=" ++ clientSecret 
                   ++ "&code=" ++ code
 
-        body = stringBody "application/x-www-form-urlencoded" content
-
-        tokenDecoder = (field "access_token" JD.string)
-
         rq = request 
                  { method = "POST"
-                 , headers = headers
-                 , url = url
-                 , body = body
-                 -- , expect = expectStringResponse (\resp -> Ok (toString resp))
-                 , expect = expectJson tokenDecoder
+                 , headers = [ (Http.header "Accept" "application/json") ]
+                 , url = "https://github.com/login/oauth/access_token/"
+                 , body = stringBody "application/x-www-form-urlencoded" content
+                 , expect = expectJson (field "access_token" JD.string)
                  , timeout = Nothing
                  , withCredentials = False
                  }
-
-        prq = post url body tokenDecoder
 
     in send GetAuthorization rq
 
