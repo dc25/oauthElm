@@ -58,7 +58,10 @@ requestAuthorization code =
                  , timeout = Nothing
                  , withCredentials = False
                  }
-    in send GetAuthorization rq
+
+        prq = post url body (field "access_token" JD.string)
+
+    in send GetAuthorization prq
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
