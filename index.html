@@ -9781,7 +9781,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('BAuth'),
+					_0: _elm_lang$html$Html$text('CAuth'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9814,6 +9814,7 @@ var _user$project$Main$GetAuthorization = function (a) {
 	return {ctor: 'GetAuthorization', _0: a};
 };
 var _user$project$Main$requestAuthorization = function (code) {
+	var tokenDecoder = A2(_elm_lang$core$Json_Decode$field, 'access_token', _elm_lang$core$Json_Decode$string);
 	var content = A2(
 		_elm_lang$core$Basics_ops['++'],
 		'client_id=',
@@ -9840,20 +9841,12 @@ var _user$project$Main$requestAuthorization = function (code) {
 			headers: headers,
 			url: url,
 			body: body,
-			expect: _elm_lang$http$Http$expectStringResponse(
-				function (resp) {
-					return _elm_lang$core$Result$Ok(
-						_elm_lang$core$Basics$toString(resp));
-				}),
+			expect: _elm_lang$http$Http$expectJson(tokenDecoder),
 			timeout: _elm_lang$core$Maybe$Nothing,
 			withCredentials: false
 		});
-	var prq = A3(
-		_elm_lang$http$Http$post,
-		url,
-		body,
-		A2(_elm_lang$core$Json_Decode$field, 'access_token', _elm_lang$core$Json_Decode$string));
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, prq);
+	var prq = A3(_elm_lang$http$Http$post, url, body, tokenDecoder);
+	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
