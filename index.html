@@ -9781,7 +9781,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Auth'),
+					_0: _elm_lang$html$Html$text('AUTH'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9837,8 +9837,11 @@ var _user$project$Main$requestAuthorization = function (code) {
 			},
 			url: 'https://github.com/login/oauth/access_token/',
 			body: A2(_elm_lang$http$Http$stringBody, 'application/x-www-form-urlencoded', content),
-			expect: _elm_lang$http$Http$expectJson(
-				A2(_elm_lang$core$Json_Decode$field, 'access_token', _elm_lang$core$Json_Decode$string)),
+			expect: _elm_lang$http$Http$expectStringResponse(
+				function (resp) {
+					return _elm_lang$core$Result$Ok(
+						_elm_lang$core$Basics$toString(resp));
+				}),
 			timeout: _elm_lang$core$Maybe$Nothing,
 			withCredentials: false
 		});
