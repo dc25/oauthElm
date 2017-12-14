@@ -9724,42 +9724,21 @@ var _evancz$url_parser$UrlParser$intParam = function (name) {
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
-		_v0_2:
-		do {
-			switch (_p0.ctor) {
-				case 'GetAuthorization':
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								auth: _elm_lang$core$Maybe$Just(_p0._0)
-							}),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
-				case 'GazersFetched':
-					if (_p0._0.ctor === 'Ok') {
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									gazers: _elm_lang$core$Maybe$Just(_p0._0._0)
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					} else {
-						break _v0_2;
-					}
-				default:
-					break _v0_2;
-			}
-		} while(false);
-		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		if (_p0.ctor === 'GetAuthorization') {
+			return {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						auth: _elm_lang$core$Maybe$Just(_p0._0)
+					}),
+				_1: _elm_lang$core$Platform_Cmd$none
+			};
+		} else {
+			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
 	});
-var _user$project$Main$decodeGazers = _elm_lang$core$Json_Decode$list(
-	A2(_elm_lang$core$Json_Decode$field, 'login', _elm_lang$core$Json_Decode$string));
-var _user$project$Main$state = 'w9erwlksjdf;kajdsf';
+var _user$project$Main$state = 'w9erwlksjdf';
 var _user$project$Main$scope = 'repo:user';
 var _user$project$Main$repoName = 'oauthElm';
 var _user$project$Main$redirectUri = A2(_elm_lang$core$Basics_ops['++'], 'https://dc25.github.io/', _user$project$Main$repoName);
@@ -9802,7 +9781,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('buthe'),
+					_0: _elm_lang$html$Html$text('Auth'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9813,9 +9792,9 @@ var _user$project$Main$view = function (m) {
 			}
 		});
 };
-var _user$project$Main$Model = F3(
-	function (a, b, c) {
-		return {oauth: a, auth: b, gazers: c};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {oauth: a, auth: b};
 	});
 var _user$project$Main$TokenData = F2(
 	function (a, b) {
@@ -9831,41 +9810,8 @@ var _user$project$Main$redirectParser = A2(
 			_evancz$url_parser$UrlParser$s(_user$project$Main$repoName),
 			_evancz$url_parser$UrlParser$stringParam('code')),
 		_evancz$url_parser$UrlParser$stringParam('state')));
-var _user$project$Main$GazersFetched = function (a) {
-	return {ctor: 'GazersFetched', _0: a};
-};
-var _user$project$Main$getGazersCmd = function (reponame) {
-	var url = A2(
-		_elm_lang$core$Basics_ops['++'],
-		'https://api.github.com/repos/',
-		A2(_elm_lang$core$Basics_ops['++'], reponame, '/stargazers'));
-	var request = A2(_elm_lang$http$Http$get, url, _user$project$Main$decodeGazers);
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GazersFetched, request);
-};
 var _user$project$Main$GetAuthorization = function (a) {
 	return {ctor: 'GetAuthorization', _0: a};
-};
-var _user$project$Main$requestAuthorizationHack = function (code) {
-	var body = _elm_lang$http$Http$emptyBody;
-	var headers = {ctor: '[]'};
-	var url = 'http://172.17.0.2:8000/';
-	var rq = _elm_lang$http$Http$request(
-		{
-			method: 'GET',
-			headers: headers,
-			url: url,
-			body: body,
-			expect: _elm_lang$http$Http$expectJson(_user$project$Main$decodeGazers),
-			timeout: _elm_lang$core$Maybe$Nothing,
-			withCredentials: false
-		});
-	return A2(
-		_elm_lang$http$Http$send,
-		function (_p1) {
-			return _user$project$Main$GetAuthorization(
-				A2(_elm_lang$core$Result$map, _elm_lang$core$String$concat, _p1));
-		},
-		rq);
 };
 var _user$project$Main$requestAuthorization = function (code) {
 	var content = A2(
@@ -9888,7 +9834,6 @@ var _user$project$Main$requestAuthorization = function (code) {
 		_1: {ctor: '[]'}
 	};
 	var url = 'https://github.com/login/oauth/access_token/';
-	var rqp = A3(_elm_lang$http$Http$post, url, body, _elm_lang$core$Json_Decode$string);
 	var rq = _elm_lang$http$Http$request(
 		{
 			method: 'POST',
@@ -9907,17 +9852,17 @@ var _user$project$Main$requestAuthorization = function (code) {
 };
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
-	var _p2 = oauth;
-	if (((_p2.ctor === 'Just') && (_p2._0._0.ctor === 'Just')) && (_p2._0._1.ctor === 'Just')) {
+	var _p1 = oauth;
+	if (((_p1.ctor === 'Just') && (_p1._0._0.ctor === 'Just')) && (_p1._0._1.ctor === 'Just')) {
 		return {
 			ctor: '_Tuple2',
-			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorization(_p2._0._0._0)
+			_0: {oauth: oauth, auth: _elm_lang$core$Maybe$Nothing},
+			_1: _user$project$Main$requestAuthorization(_p1._0._0._0)
 		};
 	} else {
 		return {
 			ctor: '_Tuple2',
-			_0: {oauth: _elm_lang$core$Maybe$Nothing, auth: _elm_lang$core$Maybe$Nothing, gazers: _elm_lang$core$Maybe$Nothing},
+			_0: {oauth: _elm_lang$core$Maybe$Nothing, auth: _elm_lang$core$Maybe$Nothing},
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	}
