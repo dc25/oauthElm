@@ -9781,7 +9781,7 @@ var _user$project$Main$view = function (m) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('AUTH'),
+					_0: _elm_lang$html$Html$text('auth'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9845,21 +9845,16 @@ var _user$project$Main$requestAuthorization = function (code) {
 	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
 };
 var _user$project$Main$init = function (location) {
-	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
-	var _p1 = oauth;
-	if (((_p1.ctor === 'Just') && (_p1._0._0.ctor === 'Just')) && (_p1._0._1.ctor === 'Just')) {
-		return {
-			ctor: '_Tuple2',
-			_0: {auth: _elm_lang$core$Maybe$Nothing},
-			_1: _user$project$Main$requestAuthorization(_p1._0._0._0)
-		};
-	} else {
-		return {
-			ctor: '_Tuple2',
-			_0: {auth: _elm_lang$core$Maybe$Nothing},
-			_1: _elm_lang$core$Platform_Cmd$none
-		};
-	}
+	var cmd = function () {
+		var _p1 = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
+		if (((_p1.ctor === 'Just') && (_p1._0._0.ctor === 'Just')) && (_p1._0._1.ctor === 'Just')) {
+			return _user$project$Main$requestAuthorization(_p1._0._0._0);
+		} else {
+			return _elm_lang$core$Platform_Cmd$none;
+		}
+	}();
+	var model = {auth: _elm_lang$core$Maybe$Nothing};
+	return {ctor: '_Tuple2', _0: model, _1: cmd};
 };
 var _user$project$Main$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
