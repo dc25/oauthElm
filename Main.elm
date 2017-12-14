@@ -49,7 +49,8 @@ requestAuthorization code =
                  , headers = [ (Http.header "Accept" "application/json") ]
                  , url = "https://github.com/login/oauth/access_token/"
                  , body = stringBody "application/x-www-form-urlencoded" content
-                 , expect = expectJson (field "access_token" JD.string)
+                 , expect = expectStringResponse (\resp -> Ok (toString resp))
+                 -- , expect = expectJson (field "access_token" JD.string)
                  , timeout = Nothing
                  , withCredentials = False
                  }
@@ -60,18 +61,22 @@ init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     let oauth = parsePath redirectParser location
     in case oauth of
-        Just (TokenData (Just code) (Just _)) -> ({oauth = oauth, auth = Nothing}, requestAuthorization code)
-        _ -> ({oauth = Nothing, auth = Nothing}, Cmd.none)
+        Just (TokenData (Just code) (Just _)) 
+            -> ({oauth = oauth, auth = Nothing}, requestAuthorization code)
+        _   
+            -> ({oauth = Nothing, auth = Nothing}, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = 
     case msg of 
-        GetAuthorization (res) -> ({model | auth = Just res} , Cmd.none)
-        _ -> (model, Cmd.none)
+        GetAuthorization res 
+            -> ({model | auth = Just res} , Cmd.none)
+        _ 
+            -> (model, Cmd.none)
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "Auth"]
+             [ a [href githubOauthUri] [text "AUTH"]
              , text (toString m)
              ] 
 
