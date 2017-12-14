@@ -44,10 +44,12 @@ requestAuthorization code =
                   ++ "&client_secret=" ++ clientSecret 
                   ++ "&code=" ++ code
 
+        corsAnywhere = "https://cors-anywhere.herokuapp.com/"
+
         rq = request 
                  { method = "POST"
                  , headers = [ (Http.header "Accept" "application/json") ]
-                 , url = "https://github.com/login/oauth/access_token/"
+                 , url = corsAnywhere ++ "https://github.com/login/oauth/access_token/"
                  , body = stringBody "application/x-www-form-urlencoded" content
                  , expect = expectStringResponse (\resp -> Ok (toString resp))
                  -- , expect = expectJson (field "access_token" JD.string)
@@ -76,7 +78,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "AUTH"]
+             [ a [href githubOauthUri] [text "auth"]
              , text (toString m)
              ] 
 
