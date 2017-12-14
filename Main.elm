@@ -51,8 +51,8 @@ requestAuthorization code =
                  , headers = [ (Http.header "Accept" "application/json") ]
                  , url = corsAnywhere ++ "https://github.com/login/oauth/access_token/"
                  , body = stringBody "application/x-www-form-urlencoded" content
-                 , expect = expectStringResponse (\resp -> Ok (toString resp))
-                 -- , expect = expectJson (field "access_token" JD.string)
+                 -- , expect = expectStringResponse (\resp -> Ok (toString resp))
+                 , expect = expectJson (field "access_token" JD.string)
                  , timeout = Nothing
                  , withCredentials = False
                  }
@@ -78,7 +78,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth"]
+             [ a [href githubOauthUri] [text "AUTH"]
              , text (toString m)
              ] 
 
