@@ -62,12 +62,14 @@ requestAuthorization code =
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
-    let oauth = parsePath redirectParser location
-    in case oauth of
-        Just (TokenData (Just code) (Just _)) 
-            -> ({auth = Nothing}, requestAuthorization code)
-        _   
-            -> ({auth = Nothing}, Cmd.none)
+    let model = {auth = Nothing}
+        cmd = case (parsePath redirectParser location) of
+                  Just (TokenData (Just code) (Just _)) 
+                      -> requestAuthorization code
+                  _   
+                      -> Cmd.none
+    in (model, cmd)
+
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = 
@@ -79,7 +81,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "AUTH"]
+             [ a [href githubOauthUri] [text "auth"]
              , text (toString m)
              ] 
 
