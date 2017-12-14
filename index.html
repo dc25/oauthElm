@@ -9848,7 +9848,12 @@ var _user$project$Main$requestAuthorization = function (code) {
 			timeout: _elm_lang$core$Maybe$Nothing,
 			withCredentials: false
 		});
-	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, rq);
+	var prq = A3(
+		_elm_lang$http$Http$post,
+		url,
+		body,
+		A2(_elm_lang$core$Json_Decode$field, 'access_token', _elm_lang$core$Json_Decode$string));
+	return A2(_elm_lang$http$Http$send, _user$project$Main$GetAuthorization, prq);
 };
 var _user$project$Main$init = function (location) {
 	var oauth = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Main$redirectParser, location);
