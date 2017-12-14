@@ -49,19 +49,22 @@ requestAuthorization code =
 
         body = stringBody "application/x-www-form-urlencoded" content
 
+        tokenDecoder = (field "access_token" JD.string)
+
         rq = request 
                  { method = "POST"
                  , headers = headers
                  , url = url
                  , body = body
-                 , expect = expectStringResponse (\resp -> Ok (toString resp))
+                 -- , expect = expectStringResponse (\resp -> Ok (toString resp))
+                 , expect = expectJson tokenDecoder
                  , timeout = Nothing
                  , withCredentials = False
                  }
 
-        prq = post url body (field "access_token" JD.string)
+        prq = post url body tokenDecoder
 
-    in send GetAuthorization prq
+    in send GetAuthorization rq
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
@@ -78,7 +81,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "BAuth"]
+             [ a [href githubOauthUri] [text "CAuth"]
              , text (toString m)
              ] 
 
