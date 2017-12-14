@@ -9,7 +9,7 @@ import Json.Decode as JD exposing (decodeString, string, dict, field, list)
 type TokenData = TokenData (Maybe String) (Maybe String)
 
 type alias Model = 
-    { auth: Maybe (Result Error String)
+    { auth: Maybe String
     }
 
 type Msg =   UrlChange Navigation.Location 
@@ -53,7 +53,6 @@ requestAuthorization code =
                  , headers = [ (Http.header "Accept" "application/json") ]
                  , url = corsAnywhere ++ "https://github.com/login/oauth/access_token/"
                  , body = stringBody "application/x-www-form-urlencoded" content
-                 -- , expect = expectStringResponse (\resp -> Ok (toString resp))
                  , expect = expectJson (field "access_token" JD.string)
                  , timeout = Nothing
                  , withCredentials = False
@@ -73,14 +72,14 @@ init location =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = 
     case msg of 
-        GetAuthorization res 
+        GetAuthorization (Ok res)
             -> ({model | auth = Just res} , Cmd.none)
         _ 
             -> (model, Cmd.none)
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth"]
+             [ a [href githubOauthUri] [text "AUTH"]
              , text (toString m)
              ] 
 
