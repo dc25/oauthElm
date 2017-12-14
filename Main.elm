@@ -37,6 +37,9 @@ redirectParser = Url.map TokenData
                      <?> stringParam "state"
                      )
 
+-- https://stackoverflow.com/questions/42150075/cors-issue-on-github-oauth
+-- https://github.com/isaacs/github/issues/330
+-- https://stackoverflow.com/questions/29670703/how-to-use-cors-anywhere-to-reverse-proxy-and-add-cors-headers
 
 requestAuthorization : String -> Cmd Msg
 requestAuthorization code =
