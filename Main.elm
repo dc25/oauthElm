@@ -9,8 +9,7 @@ import Json.Decode as JD exposing (decodeString, string, dict, field, list)
 type TokenData = TokenData (Maybe String) (Maybe String)
 
 type alias Model = 
-    { oauth: Maybe TokenData
-    , auth: Maybe (Result Error String)
+    { auth: Maybe (Result Error String)
     }
 
 type Msg =   UrlChange Navigation.Location 
@@ -67,9 +66,9 @@ init location =
     let oauth = parsePath redirectParser location
     in case oauth of
         Just (TokenData (Just code) (Just _)) 
-            -> ({oauth = oauth, auth = Nothing}, requestAuthorization code)
+            -> ({auth = Nothing}, requestAuthorization code)
         _   
-            -> ({oauth = Nothing, auth = Nothing}, Cmd.none)
+            -> ({auth = Nothing}, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = 
@@ -81,7 +80,7 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "AUTH"]
+             [ a [href githubOauthUri] [text "auth"]
              , text (toString m)
              ] 
 
