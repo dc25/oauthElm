@@ -12,8 +12,7 @@ type alias Model =
     { auth: Maybe String
     }
 
-type Msg =   UrlChange Navigation.Location 
-           | GetAuthorization (Result Error String) 
+type Msg = GetAuthorization (Result Error String) 
 
 clientId = "8256469ec6a458a2b111"
 clientSecret = "b768bf69c0f44866330780a11d01cbf192ec0727"
@@ -87,7 +86,7 @@ view m = div []
 
 main : Program Never Model Msg
 main =
-    Navigation.program UrlChange
+    Navigation.program -
         { init = init
         , update = update
         , view = view
