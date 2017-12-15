@@ -12,7 +12,8 @@ type alias Model =
     { auth: Maybe String
     }
 
-type Msg = GetAuthorization (Result Error String) 
+type Msg =   UrlChange Navigation.Location    
+           | GetAuthorization (Result Error String) 
 
 clientId = "8256469ec6a458a2b111"
 clientSecret = "b768bf69c0f44866330780a11d01cbf192ec0727"
@@ -80,14 +81,14 @@ update msg model =
 
 view : Model -> Html Msg
 view m = div []
-             [ a [href githubOauthUri] [text "auth"]
+             [ a [href githubOauthUri] [text "AUTH"]
              , text (toString m)
              ] 
 
 main : Program Never Model Msg
 main =
-    Navigation.program -
-        { init = init
+    Navigation.program UrlChange
+        { init = init 
         , update = update
         , view = view
         , subscriptions = \m -> Sub.none
